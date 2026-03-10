@@ -17,13 +17,13 @@ def ai_ask(prompt, data=None, temperature=0.5, max_tokens=250, model="mistral-sm
     if not isinstance(max_tokens, (float, int)) or not (5 <= float(max_tokens) <= 5000):
         return "Error: max_tokens must be a number between 5 and 5000 (inclusive)"
 
-    # Construct the message
+    # Construct the message incorporating both prompt and data if provided
     message = prompt
     if data is not None:
         data_str = json.dumps(data, indent=2)
         message += f"\n\nData to analyze:\n{data_str}"
 
-    # Prepare payload
+    # Prepare the API request payload
     payload = {
         "messages": [{"role": "user", "content": message}],
         "temperature": float(temperature),
